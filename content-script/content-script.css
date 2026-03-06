@@ -1,0 +1,30 @@
+/* Content Script Styles */
+
+/* Prevent conflicts with page styles */
+#smart-capture-selection,
+#smart-capture-loading,
+.smart-capture-notification,
+.smart-capture-highlight {
+  all: initial;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Selection overlay already defined in JS */
+
+/* Additional utility styles */
+.smart-capture-hidden {
+  display: none !important;
+}
+
+.smart-capture-fade-in {
+  animation: smartCaptureFadeIn 0.3s ease;
+}
+
+@keyframes smartCaptureFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

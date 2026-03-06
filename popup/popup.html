@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Smart Capture</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>📸 Advanced Smart Capture</h1>
+    </header>
+
+    <!-- Capture Mode Selection -->
+    <section class="capture-modes">
+      <h2>Capture Mode</h2>
+      <div class="btn-group">
+        <button id="fullPageBtn" class="btn btn-primary" title="Capture entire scrollable page">
+          <span class="icon">📄</span> Full Page
+        </button>
+        <button id="visibleAreaBtn" class="btn btn-secondary" title="Capture visible area only">
+          <span class="icon">🖼️</span> Visible Area
+        </button>
+        <button id="selectionBtn" class="btn btn-secondary" title="Select area to capture">
+          <span class="icon">✂️</span> Selection
+        </button>
+        <button id="elementBtn" class="btn btn-secondary" title="Select specific element">
+          <span class="icon">🎯</span> Element
+        </button>
+      </div>
+    </section>
+
+    <!-- Custom Dimensions -->
+    <section class="dimensions">
+      <h2>Custom Dimensions</h2>
+      <div class="input-group">
+        <div class="input-field">
+          <label for="width">Width (px)</label>
+          <input type="number" id="width" placeholder="Auto" min="1">
+        </div>
+        <div class="input-field">
+          <label for="height">Height (px)</label>
+          <input type="number" id="height" placeholder="Auto" min="1">
+        </div>
+      </div>
+    </section>
+
+    <!-- Resolution & Quality -->
+    <section class="settings">
+      <h2>Resolution & Quality</h2>
+      <div class="input-group">
+        <div class="input-field">
+          <label for="resolution">Resolution</label>
+          <select id="resolution">
+            <option value="1">Original (1x)</option>
+            <option value="2" selected>HD (2x)</option>
+            <option value="3">2K (3x)</option>
+            <option value="4">4K (4x)</option>
+          </select>
+        </div>
+        <div class="input-field">
+          <label for="quality">Quality</label>
+          <select id="quality">
+            <option value="0.5">Low</option>
+            <option value="0.75">Medium</option>
+            <option value="0.92">High</option>
+            <option value="1" selected>Ultra</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Export Format -->
+    <section class="export">
+      <h2>Export Format</h2>
+      <div class="btn-group">
+        <button id="pngBtn" class="btn format-btn active" data-format="png">PNG</button>
+        <button id="jpgBtn" class="btn format-btn" data-format="jpg">JPG</button>
+        <button id="pdfBtn" class="btn format-btn" data-format="pdf">PDF</button>
+      </div>
+    </section>
+
+    <!-- View Options -->
+    <section class="view-options">
+      <h2>View Options</h2>
+      <div class="checkbox-group">
+        <label class="checkbox">
+          <input type="checkbox" id="darkMode">
+          <span>🌙 Dark Mode Preview</span>
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" id="mobileView">
+          <span>📱 Mobile View</span>
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" id="removeAds">
+          <span>🚫 Remove Ads/Scripts</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Advanced Features -->
+    <section class="advanced">
+      <h2>Advanced Features</h2>
+      <div class="feature-btns">
+        <button id="annotateBtn" class="btn btn-feature">
+          <span class="icon">✏️</span> Annotations
+        </button>
+        <button id="ocrBtn" class="btn btn-feature">
+          <span class="icon">🔍</span> OCR Text
+        </button>
+        <button id="copyTextBtn" class="btn btn-feature">
+          <span class="icon">📋</span> Copy Text
+        </button>
+        <button id="scheduleBtn" class="btn btn-feature">
+          <span class="icon">⏰</span> Schedule
+        </button>
+      </div>
+    </section>
+
+    <!-- Watermark Options -->
+    <section class="watermark">
+      <h2>Watermark</h2>
+      <div class="input-group">
+        <div class="input-field">
+          <label for="watermarkText">Text</label>
+          <input type="text" id="watermarkText" placeholder="Your watermark">
+        </div>
+        <div class="input-field">
+          <label for="watermarkPosition">Position</label>
+          <select id="watermarkPosition">
+            <option value="none">None</option>
+            <option value="top-left">Top Left</option>
+            <option value="top-right">Top Right</option>
+            <option value="bottom-left">Bottom Left</option>
+            <option value="bottom-right">Bottom Right</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Buttons -->
+    <section class="actions">
+      <button id="captureBtn" class="btn btn-capture">
+        <span class="icon">📸</span> Capture Now
+      </button>
+      <button id="historyBtn" class="btn btn-history">
+        <span class="icon">📚</span> History
+      </button>
+      <button id="settingsBtn" class="btn btn-settings">
+        <span class="icon">⚙️</span> Settings
+      </button>
+    </section>
+
+    <!-- Status -->
+    <div id="status" class="status"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>

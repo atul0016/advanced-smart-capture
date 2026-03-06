@@ -1,0 +1,19 @@
+# Debug and test files
+CRITICAL-FIX-README.md
+DEBUGGER-API-SOLUTION.md
+PLAYWRIGHT-TEST-REPORT.md
+TESTING-GUIDE.md
+debug-capture-test.html
+test-fixed-nav.html
+test-pages/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Build outputs
+*.zip

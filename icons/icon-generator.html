@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      margin: 10px;
+      background: white;
+    }
+    .controls {
+      margin: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #5568d3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Advanced Smart Capture - Icon Generator</h1>
+  <div class="controls">
+    <button onclick="generateIcons()">Generate All Icons</button>
+    <button onclick="downloadAll()">Download All</button>
+  </div>
+  <div id="canvases"></div>
+
+  <script>
+    const sizes = [16, 32, 48, 128];
+    const canvases = {};
+
+    function createCanvas(size) {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      canvas.id = `icon${size}`;
+      
+      const label = document.createElement('div');
+      label.textContent = `${size}x${size}`;
+      label.style.textAlign = 'center';
+      
+      const container = document.createElement('div');
+      container.style.display = 'inline-block';
+      container.style.margin = '10px';
+      container.appendChild(label);
+      container.appendChild(canvas);
+      
+      document.getElementById('canvases').appendChild(container);
+      canvases[size] = canvas;
+      
+      return canvas;
+    }
+
+    function drawIcon(canvas) {
+      const ctx = canvas.getContext('2d');
+      const size = canvas.width;
+      
+      // Clear canvas
+      ctx.clearRect(0, 0, size, size);
+      
+      // Gradient background
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#667eea');
+      gradient.addColorStop(1, '#764ba2');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+      
+      // Camera icon
+      const scale = size / 128;
+      
+      // Camera body
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.roundRect(size * 0.2, size * 0.3, size * 0.6, size * 0.5, size * 0.08);
+      ctx.fill();
+      
+      // Camera lens
+      ctx.fillStyle = '#667eea';
+      ctx.beginPath();
+      ctx.arc(size * 0.5, size * 0.55, size * 0.15, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Lens inner
+      ctx.fillStyle = '#764ba2';
+      ctx.beginPath();
+      ctx.arc(size * 0.5, size * 0.55, size * 0.08, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Flash
+      ctx.fillStyle = '#ffd700';
+      ctx.beginPath();
+      ctx.arc(size * 0.75, size * 0.35, size * 0.05, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Viewfinder
+      ctx.fillStyle = 'white';
+      ctx.fillRect(size * 0.25, size * 0.2, size * 0.15, size * 0.08);
+      
+      // Corner brackets (capture frame)
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.lineWidth = size * 0.02;
+      
+      // Top-left
+      ctx.beginPath();
+      ctx.moveTo(size * 0.15, size * 0.25);
+      ctx.lineTo(size * 0.15, size * 0.15);
+      ctx.lineTo(size * 0.25, size * 0.15);
+      ctx.stroke();
+      
+      // Top-right
+      ctx.beginPath();
+      ctx.moveTo(size * 0.75, size * 0.15);
+      ctx.lineTo(size * 0.85, size * 0.15);
+      ctx.lineTo(size * 0.85, size * 0.25);
+      ctx.stroke();
+      
+      // Bottom-left
+      ctx.beginPath();
+      ctx.moveTo(size * 0.25, size * 0.85);
+      ctx.lineTo(size * 0.15, size * 0.85);
+      ctx.lineTo(size * 0.15, size * 0.75);
+      ctx.stroke();
+      
+      // Bottom-right
+      ctx.beginPath();
+      ctx.moveTo(size * 0.85, size * 0.75);
+      ctx.lineTo(size * 0.85, size * 0.85);
+      ctx.lineTo(size * 0.75, size * 0.85);
+      ctx.stroke();
+    }
+
+    function generateIcons() {
+      sizes.forEach(size => {
+        let canvas = canvases[size];
+        if (!canvas) {
+          canvas = createCanvas(size);
+        }
+        drawIcon(canvas);
+      });
+    }
+
+    function downloadAll() {
+      sizes.forEach(size => {
+        const canvas = canvases[size];
+        if (canvas) {
+          canvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `icon${size}.png`;
+            link.click();
+            URL.revokeObjectURL(url);
+          });
+        }
+      });
+    }
+
+    // Auto-generate on load
+    window.onload = generateIcons;
+  </script>
+</body>
+</html>
