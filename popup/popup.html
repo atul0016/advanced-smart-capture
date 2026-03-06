@@ -18,24 +18,24 @@
     <section class="capture-modes">
       <h2>Capture Mode</h2>
       <div class="btn-group">
-        <button id="fullPageBtn" class="btn btn-primary" title="Capture entire scrollable page">
-          <span class="icon">📄</span> Full Page
+        <button id="fullPageBtn" class="btn btn-secondary premium-feature" title="Capture entire scrollable page">
+          <span class="icon">📄</span> Full Page <span class="pro-badge">PRO</span>
         </button>
-        <button id="visibleAreaBtn" class="btn btn-secondary" title="Capture visible area only">
+        <button id="visibleAreaBtn" class="btn btn-primary" title="Capture visible area only (free)">
           <span class="icon">🖼️</span> Visible Area
         </button>
-        <button id="selectionBtn" class="btn btn-secondary" title="Select area to capture">
-          <span class="icon">✂️</span> Selection
+        <button id="selectionBtn" class="btn btn-secondary premium-feature" title="Select area to capture">
+          <span class="icon">✂️</span> Selection <span class="pro-badge">PRO</span>
         </button>
-        <button id="elementBtn" class="btn btn-secondary" title="Select specific element">
-          <span class="icon">🎯</span> Element
+        <button id="elementBtn" class="btn btn-secondary premium-feature" title="Select specific element">
+          <span class="icon">🎯</span> Element <span class="pro-badge">PRO</span>
         </button>
       </div>
     </section>
 
     <!-- Custom Dimensions -->
-    <section class="dimensions">
-      <h2>Custom Dimensions</h2>
+    <section class="dimensions premium-feature">
+      <h2>Custom Dimensions <span class="pro-badge">PRO</span></h2>
       <div class="input-group">
         <div class="input-field">
           <label for="width">Width (px)</label>
@@ -55,10 +55,10 @@
         <div class="input-field">
           <label for="resolution">Resolution</label>
           <select id="resolution">
-            <option value="1">Original (1x)</option>
-            <option value="2" selected>HD (2x)</option>
-            <option value="3">2K (3x)</option>
-            <option value="4">4K (4x)</option>
+            <option value="1" selected>Original (1x)</option>
+            <option value="2">HD (2x) PRO</option>
+            <option value="3">2K (3x) PRO</option>
+            <option value="4">4K (4x) PRO</option>
           </select>
         </div>
         <div class="input-field">
@@ -78,24 +78,24 @@
       <h2>Export Format</h2>
       <div class="btn-group">
         <button id="pngBtn" class="btn format-btn active" data-format="png">PNG</button>
-        <button id="jpgBtn" class="btn format-btn" data-format="jpg">JPG</button>
-        <button id="pdfBtn" class="btn format-btn" data-format="pdf">PDF</button>
+        <button id="jpgBtn" class="btn format-btn premium-feature" data-format="jpg">JPG <span class="pro-badge">PRO</span></button>
+        <button id="pdfBtn" class="btn format-btn premium-feature" data-format="pdf">PDF <span class="pro-badge">PRO</span></button>
       </div>
     </section>
 
     <!-- View Options -->
     <section class="view-options">
-      <h2>View Options</h2>
+      <h2>View Options <span class="pro-badge">PRO</span></h2>
       <div class="checkbox-group">
-        <label class="checkbox">
+        <label class="checkbox premium-feature">
           <input type="checkbox" id="darkMode">
           <span>🌙 Dark Mode Preview</span>
         </label>
-        <label class="checkbox">
+        <label class="checkbox premium-feature">
           <input type="checkbox" id="mobileView">
           <span>📱 Mobile View</span>
         </label>
-        <label class="checkbox">
+        <label class="checkbox premium-feature">
           <input type="checkbox" id="removeAds">
           <span>🚫 Remove Ads/Scripts</span>
         </label>
@@ -104,26 +104,37 @@
 
     <!-- Advanced Features -->
     <section class="advanced">
-      <h2>Advanced Features</h2>
+      <h2>Advanced Features <span class="pro-badge">PRO</span></h2>
       <div class="feature-btns">
-        <button id="annotateBtn" class="btn btn-feature">
+        <button id="annotateBtn" class="btn btn-feature premium-feature">
           <span class="icon">✏️</span> Annotations
         </button>
-        <button id="ocrBtn" class="btn btn-feature">
+        <button id="ocrBtn" class="btn btn-feature premium-feature">
           <span class="icon">🔍</span> OCR Text
         </button>
-        <button id="copyTextBtn" class="btn btn-feature">
+        <button id="copyTextBtn" class="btn btn-feature premium-feature">
           <span class="icon">📋</span> Copy Text
         </button>
-        <button id="scheduleBtn" class="btn btn-feature">
+        <button id="scheduleBtn" class="btn btn-feature premium-feature">
           <span class="icon">⏰</span> Schedule
         </button>
       </div>
     </section>
 
+    <!-- Upgrade Banner (free users) -->
+    <section id="upgradeSection" class="upgrade-banner">
+      <p>🚀 Unlock all features for <strong>$2.99</strong> — one-time payment</p>
+      <button id="upgradeBtn" class="btn btn-upgrade">⚡ Upgrade to Premium</button>
+    </section>
+
+    <!-- Premium Active Banner -->
+    <section id="premiumActiveSection" class="premium-active" style="display:none">
+      <p>💎 Premium Active — All features unlocked!</p>
+    </section>
+
     <!-- Watermark Options -->
-    <section class="watermark">
-      <h2>Watermark</h2>
+    <section class="watermark premium-feature premium-feature">
+      <h2>Watermark <span class="pro-badge">PRO</span></h2>
       <div class="input-group">
         <div class="input-field">
           <label for="watermarkText">Text</label>

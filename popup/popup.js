@@ -3,6 +3,8 @@ class PopupController {
   constructor() {
     this.captureMode = 'fullPage';
     this.exportFormat = 'png';
+    this.premiumActive = false;
+    this.PAYMENT_URL = 'https://atul0016.github.io/advanced-smart-capture/pay.html';
     this.settings = {
       width: null,
       height: null,
@@ -18,38 +20,61 @@ class PopupController {
     this.init();
   }
 
-  init() {
+  async init() {
+    await this.checkPremiumStatus();
     this.loadSettings();
     this.attachEventListeners();
+    this.updatePremiumUI();
+    this.listenForPaymentSuccess();
   }
 
   attachEventListeners() {
-    // Capture Mode Buttons
-    document.getElementById('fullPageBtn').addEventListener('click', () => this.setCaptureMode('fullPage'));
+    // Capture Mode Buttons — all premium
+    document.getElementById('fullPageBtn').addEventListener('click', () => {
+      if (!this.premiumActive) return this.showUpgradePrompt();
+      this.setCaptureMode('fullPage');
+    });
     document.getElementById('visibleAreaBtn').addEventListener('click', () => this.setCaptureMode('visible'));
-    document.getElementById('selectionBtn').addEventListener('click', () => this.setCaptureMode('selection'));
-    document.getElementById('elementBtn').addEventListener('click', () => this.setCaptureMode('element'));
+    document.getElementById('selectionBtn').addEventListener('click', () => {
+      if (!this.premiumActive) return this.showUpgradePrompt();
+      this.setCaptureMode('selection');
+    });
+    document.getElementById('elementBtn').addEventListener('click', () => {
+      if (!this.premiumActive) return this.showUpgradePrompt();
+      this.setCaptureMode('element');
+    });
 
     // Format Buttons
     document.querySelectorAll('.format-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        const fmt = e.currentTarget.dataset.format;
+        if ((fmt === 'jpg' || fmt === 'pdf') && !this.premiumActive) {
+          return this.showUpgradePrompt();
+        }
         document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        this.exportFormat = e.target.dataset.format;
+        e.currentTarget.classList.add('active');
+        this.exportFormat = fmt;
       });
     });
 
     // Settings Inputs
     document.getElementById('width').addEventListener('input', (e) => {
+      if (!this.premiumActive) { e.target.value = ''; return this.showUpgradePrompt(); }
       this.settings.width = e.target.value ? parseInt(e.target.value) : null;
     });
 
     document.getElementById('height').addEventListener('input', (e) => {
+      if (!this.premiumActive) { e.target.value = ''; return this.showUpgradePrompt(); }
       this.settings.height = e.target.value ? parseInt(e.target.value) : null;
     });
 
     document.getElementById('resolution').addEventListener('change', (e) => {
-      this.settings.resolution = parseFloat(e.target.value);
+      const val = parseFloat(e.target.value);
+      if (val > 1 && !this.premiumActive) {
+        e.target.value = '1';
+        return this.showUpgradePrompt();
+      }
+      this.settings.resolution = val;
     });
 
     document.getElementById('quality').addEventListener('change', (e) => {
@@ -57,14 +82,17 @@ class PopupController {
     });
 
     document.getElementById('darkMode').addEventListener('change', (e) => {
+      if (!this.premiumActive) { e.target.checked = false; return this.showUpgradePrompt(); }
       this.settings.darkMode = e.target.checked;
     });
 
     document.getElementById('mobileView').addEventListener('change', (e) => {
+      if (!this.premiumActive) { e.target.checked = false; return this.showUpgradePrompt(); }
       this.settings.mobileView = e.target.checked;
     });
 
     document.getElementById('removeAds').addEventListener('change', (e) => {
+      if (!this.premiumActive) { e.target.checked = false; return this.showUpgradePrompt(); }
       this.settings.removeAds = e.target.checked;
     });
 
@@ -76,11 +104,26 @@ class PopupController {
       this.settings.watermarkPosition = e.target.value;
     });
 
-    // Feature Buttons
-    document.getElementById('annotateBtn').addEventListener('click', () => this.openAnnotationMode());
-    document.getElementById('ocrBtn').addEventListener('click', () => this.performOCR());
-    document.getElementById('copyTextBtn').addEventListener('click', () => this.copyPageText());
-    document.getElementById('scheduleBtn').addEventListener('click', () => this.scheduleCapture());
+    // Feature Buttons — all premium
+    document.getElementById('annotateBtn').addEventListener('click', () => {
+      if (!this.premiumActive) return this.showUpgradePrompt();
+      this.openAnnotationMode();
+    });
+    document.getElementById('ocrBtn').addEventListener('click', () => {
+      if (!this.premiumActive) return this.showUpgradePrompt();
+      this.performOCR();
+    });
+    document.getElementById('copyTextBtn').addEventListener('click', () => {
+      if (!this.premiumActive) return this.showUpgradePrompt();
+      this.copyPageText();
+    });
+    document.getElementById('scheduleBtn').addEventListener('click', () => {
+      if (!this.premiumActive) return this.showUpgradePrompt();
+      this.scheduleCapture();
+    });
+
+    // Upgrade button
+    document.getElementById('upgradeBtn').addEventListener('click', () => this.openPaymentPage());
 
     // Action Buttons
     document.getElementById('captureBtn').addEventListener('click', () => this.startCapture());
@@ -108,6 +151,70 @@ class PopupController {
     activeBtn.classList.remove('btn-secondary');
     activeBtn.classList.add('btn-primary');
   }
+
+  // ========== PREMIUM METHODS ==========
+
+  async checkPremiumStatus() {
+    try {
+      const result = await chrome.storage.local.get(['ascPremiumActive']);
+      this.premiumActive = result.ascPremiumActive === true;
+    } catch (e) {
+      this.premiumActive = false;
+    }
+  }
+
+  updatePremiumUI() {
+    const upgradeSection = document.getElementById('upgradeSection');
+    const premiumActiveSection = document.getElementById('premiumActiveSection');
+    if (upgradeSection) upgradeSection.style.display = this.premiumActive ? 'none' : 'block';
+    if (premiumActiveSection) premiumActiveSection.style.display = this.premiumActive ? 'block' : 'none';
+
+    document.querySelectorAll('.premium-feature').forEach(el => {
+      el.classList.toggle('locked', !this.premiumActive);
+    });
+    document.querySelectorAll('.pro-badge').forEach(badge => {
+      badge.style.display = this.premiumActive ? 'none' : 'inline';
+    });
+
+    // Lock resolution options above 1x for free users
+    const resSelect = document.getElementById('resolution');
+    if (resSelect && !this.premiumActive) {
+      resSelect.value = '1';
+      this.settings.resolution = 1;
+    }
+
+    // Keep visible area as active mode for free users
+    if (!this.premiumActive && this.captureMode !== 'visible') {
+      this.captureMode = 'visible';
+      document.querySelectorAll('.capture-modes .btn').forEach(b => {
+        b.classList.remove('btn-primary');
+        b.classList.add('btn-secondary');
+      });
+      const visBtn = document.getElementById('visibleAreaBtn');
+      if (visBtn) { visBtn.classList.remove('btn-secondary'); visBtn.classList.add('btn-primary'); }
+    }
+  }
+
+  showUpgradePrompt() {
+    this.showStatus('PRO feature — Upgrade for $2.99!', 'info');
+    setTimeout(() => this.openPaymentPage(), 900);
+  }
+
+  openPaymentPage() {
+    chrome.tabs.create({ url: this.PAYMENT_URL });
+  }
+
+  listenForPaymentSuccess() {
+    chrome.storage.onChanged.addListener((changes, area) => {
+      if (area === 'local' && changes.ascPremiumActive && changes.ascPremiumActive.newValue === true) {
+        this.premiumActive = true;
+        this.updatePremiumUI();
+        this.showStatus('🎉 Premium unlocked! All features active.', 'success');
+      }
+    });
+  }
+
+  // ========== END PREMIUM METHODS ==========
 
   async startCapture() {
     this.showStatus('Preparing capture...', 'info');

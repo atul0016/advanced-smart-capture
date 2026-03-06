@@ -1250,3 +1250,12 @@ class BackgroundService {
 
 // Initialize background service
 const backgroundService = new BackgroundService();
+
+// ========== PAYMENT SUCCESS DETECTION ==========
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
+  if (changeInfo.url && changeInfo.url.includes('advanced-smart-capture/pay.html#payment-success')) {
+    console.log('💎 ASC Premium payment detected! Activating...');
+    await chrome.storage.local.set({ ascPremiumActive: true });
+    setTimeout(() => chrome.tabs.remove(tabId).catch(() => {}), 3000);
+  }
+});
