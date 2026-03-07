@@ -1,6 +1,15 @@
-# 📸 Advanced Smart Capture
+# 📸 Advanced Smart Capture — Full Page Screenshot, OCR & Annotate for Chrome
 
-A powerful Chrome extension for capturing, annotating, and managing screenshots with advanced features including full-page capture, OCR, annotations, and cloud sync.
+> The most powerful **Chrome screenshot extension** — capture full pages, selections, or elements, extract text with OCR, annotate, and export to PDF. Free + $2.99 lifetime premium.
+
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Available-brightgreen?logo=google-chrome)](https://chrome.google.com/webstore)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/atul0016/advanced-smart-capture)
+[![License](https://img.shields.io/badge/license-MIT-orange)](LICENSE)
+
+**Advanced Smart Capture** is a Chrome extension that lets you take full-page screenshots, capture custom selections or DOM elements, extract text via OCR, annotate with arrows/highlights/blur, export to PDF, and schedule automatic captures — all without leaving your browser.
+
+**Alternatives to:** GoFullPage, Nimbus Screenshot, Fireshot, Lightshot, Awesome Screenshot
+
 
 ## ✨ Features
 
@@ -52,7 +61,7 @@ A powerful Chrome extension for capturing, annotating, and managing screenshots 
 ## 🚀 Installation
 
 ### From Chrome Web Store
-*(Coming soon)*
+**[Install Advanced Smart Capture →](https://chrome.google.com/webstore/search/advanced+smart+capture)**
 
 ### Manual Installation (Developer Mode)
 
