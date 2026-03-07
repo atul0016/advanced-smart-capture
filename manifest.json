@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Advanced Smart Capture",
+  "name": "Advanced Smart Capture - Screenshot, OCR & Annotate",
   "version": "1.0.0",
-  "description": "Advanced screenshot tool with full page capture, annotations, OCR, and cloud sync",
+  "description": "Full page screenshot, region capture, OCR text extraction, annotations, PDF export & scheduled captures. Free + Premium.",
   "permissions": [
     "activeTab",
     "tabs",
