@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Smart Capture — Unlock Premium</title>
+  <script src="https://www.paypal.com/sdk/js?client-id=AcJrVp8nuUrjoL3uevSOC_bcOoqPgxsGg8zA28z2NhJXY07FAmljoLoiUO3PyPdZUjxTB5l84AYUavCV&currency=USD"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      max-width: 420px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .card-header {
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      color: white;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .card-header .icon { font-size: 40px; margin-bottom: 10px; }
+    .card-header h1 { font-size: 22px; margin-bottom: 4px; }
+    .card-header p { font-size: 14px; opacity: 0.85; }
+    .card-body { padding: 24px; }
+    .features { list-style: none; margin-bottom: 24px; }
+    .features li {
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 15px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .features li:last-child { border-bottom: none; }
+    .features li::before {
+      content: '✓';
+      color: #10b981;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .price-tag {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 16px;
+      background: #f8f9ff;
+      border-radius: 12px;
+    }
+    .price-tag .amount { font-size: 40px; font-weight: 700; color: #0f3460; }
+    .price-tag .label { font-size: 13px; color: #888; margin-top: 2px; }
+    #paypal-button-container { min-height: 50px; }
+    .secure-note {
+      text-align: center;
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 12px;
+    }
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 40px 24px;
+    }
+    .success-message .icon { font-size: 60px; margin-bottom: 16px; }
+    .success-message h2 { color: #10b981; margin-bottom: 8px; font-size: 22px; }
+    .success-message p { color: #666; font-size: 14px; line-height: 1.6; }
+    .cws-link {
+      display: inline-block;
+      margin-top: 16px;
+      background: #0f3460;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .ph-badge {
+      text-align: center;
+      margin-top: 24px;
+    }
+    .ph-badge a img {
+      width: 200px;
+      height: 43px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="icon">📸</div>
+      <h1>Advanced Smart Capture</h1>
+      <p>Unlock Premium — One-time payment, lifetime access</p>
+    </div>
+
+    <div class="card-body" id="paymentSection">
+      <ul class="features">
+        <li>OCR — Extract text from any screenshot</li>
+        <li>PDF Export — Save captures as PDF</li>
+        <li>Scheduled Auto-Captures</li>
+        <li>Advanced Annotation Tools</li>
+        <li>Priority Support</li>
+      </ul>
+
+      <div class="price-tag">
+        <div class="amount">$2.99</div>
+        <div class="label">One-time payment · No subscription ever</div>
+      </div>
+
+      <div id="paypal-button-container"></div>
+      <p class="secure-note">🔒 Secure payment via PayPal</p>
+    </div>
+
+    <div class="success-message" id="successSection">
+      <div class="icon">🎉</div>
+      <h2>Premium Unlocked!</h2>
+      <p>All premium features are now available.<br>You can close this tab and return to the extension.</p>
+      <a class="cws-link" href="https://chromewebstore.google.com/detail/advanced-smart-capture/okdkcldebknnihbph" target="_blank">Open Extension in Chrome</a>
+    </div>
+  </div>
+
+  <div class="ph-badge">
+    <a href="https://www.producthunt.com/posts/advanced-smart-capture?utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-name" target="_blank">
+      <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1091808&theme=light" alt="Advanced Smart Capture - Full-page screenshots, OCR &amp; annotations for Chrome | Product Hunt" />
+    </a>
+  </div>
+
+  <script>
+    const VERIFY_URL = 'https://asc-verify.netlify.app/.netlify/functions/verify';
+
+    paypal.Buttons({
+      style: {
+        layout: 'vertical',
+        color:  'blue',
+        shape:  'rect',
+        label:  'pay',
+        height: 45
+      },
+
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            description: 'Advanced Smart Capture Premium Unlock',
+            amount: { currency_code: 'USD', value: '2.99' }
+          }]
+        });
+      },
+
+      onApprove: async function(data, actions) {
+        try {
+          const orderData = await actions.order.capture();
+
+          const res = await fetch(VERIFY_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderID: orderData.id })
+          });
+          const result = await res.json();
+
+          if (result.verified) {
+            document.getElementById('paymentSection').style.display = 'none';
+            document.getElementById('successSection').style.display = 'block';
+            window.location.hash = '#payment-success';
+          } else {
+            alert('Payment could not be verified. Please contact support.');
+          }
+        } catch (err) {
+          alert('Payment error: ' + err.message);
+        }
+      },
+
+      onError: function(err) {
+        alert('PayPal error. Please try again.');
+      }
+    }).render('#paypal-button-container');
+  </script>
+</body>
+</html>
