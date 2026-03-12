@@ -1,5 +1,7 @@
 # 📸 Advanced Smart Capture
 
+[![Featured on Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1091808&theme=light)](https://www.producthunt.com/posts/advanced-smart-capture?utm_source=badge-featured&utm_medium=badge)
+
 A powerful Chrome extension for capturing, annotating, and managing screenshots with advanced features including full-page capture, OCR, annotations, and cloud sync.
 
 ## ✨ Features
@@ -51,8 +53,8 @@ A powerful Chrome extension for capturing, annotating, and managing screenshots 
 
 ## 🚀 Installation
 
-### From Chrome Web Store
-*(Coming soon)*
+### From Chrome Web Store (Live!)
+**[➡️ Install Advanced Smart Capture](https://chromewebstore.google.com/detail/advanced-smart-capture/okdkcldebknnihbph)**
 
 ### Manual Installation (Developer Mode)
 
@@ -61,6 +63,17 @@ A powerful Chrome extension for capturing, annotating, and managing screenshots 
 3. Click "Load unpacked"
 4. Select the `advanced-smart-capture` folder
 5. The extension icon should appear in your toolbar
+
+## 💎 Premium Features ($2.99 one-time)
+
+Unlock advanced features with a single one-time payment — no subscription ever.
+
+- OCR text extraction from screenshots
+- PDF export
+- Scheduled auto-captures
+- Priority support
+
+**[Upgrade to Premium →](https://atul0016.github.io/advanced-smart-capture/pay.html)**
 
 ## 📖 Usage
 
@@ -138,12 +151,12 @@ advanced-smart-capture/
 │   ├── icon32.png           # 32x32 icon
 │   ├── icon48.png           # 48x48 icon
 │   ├── icon128.png          # 128x128 icon
-│   ├── icon-generator.html  # Icon generator tool
 │   └── README.md            # Icons documentation
 ├── history.html              # Capture history page
 ├── history.js                # History page logic
 ├── settings.html             # Settings page
 ├── settings.js               # Settings logic
+├── pay.html                  # Premium upgrade payment page
 └── README.md                 # This file
 ```
 
@@ -159,19 +172,6 @@ advanced-smart-capture/
 2. Make your changes
 3. Test in Chrome developer mode
 4. Submit a pull request
-
-### Adding New Features
-1. Update `manifest.json` if new permissions are needed
-2. Implement feature in appropriate module
-3. Add UI controls in popup if needed
-4. Update this README
-
-### Testing
-- Test all capture modes on various websites
-- Verify export formats work correctly
-- Check storage limits aren't exceeded
-- Test on different screen resolutions
-- Verify cross-browser compatibility (if applicable)
 
 ## 📝 Permissions Explained
 
@@ -191,30 +191,10 @@ advanced-smart-capture/
 - OCR requires Tesseract.js for full functionality
 - Very large pages may take time to capture
 - Some dynamic content may not render correctly
-- Cloud sync is currently a placeholder (requires backend)
-
-## 🛣️ Roadmap
-
-- [ ] Complete PDF export functionality
-- [ ] Integrate Tesseract.js for OCR
-- [ ] Implement actual cloud sync with providers
-- [ ] Add more annotation tools
-- [ ] Video screen recording
-- [ ] GIF creation from multiple captures
-- [ ] Batch processing
-- [ ] Template system for watermarks
-- [ ] Browser action shortcuts
-- [ ] Firefox and Edge support
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+Contributions are welcome! Please fork the repository, create a feature branch, make your changes, test thoroughly, and submit a pull request.
 
 ## 📄 License
 
@@ -222,31 +202,20 @@ MIT License - feel free to use this extension for personal or commercial project
 
 ## 🆘 Support
 
-For issues, questions, or feature requests:
-- Open an issue on GitHub
-- Check the FAQ section
-- Review existing issues before creating new ones
-
-## 🙏 Acknowledgments
-
-- Inspired by various screenshot tools
-- Icons designed with modern UI principles
-- Community feedback and suggestions
+For issues, questions, or feature requests, open an issue on GitHub.
 
 ## 📊 Version History
 
 ### v1.0.0 (Current)
-- Initial release
-- Full page capture
-- Selection and element capture
-- Basic annotation tools
-- Text extraction
-- Export to PNG/JPG/PDF
-- Capture history
+- Initial release with full feature set
+- Full page, selection, and element capture
+- Annotation tools (arrow, rectangle, circle, highlight, blur, text)
+- OCR text extraction
+- PDF, PNG, JPG export
+- Capture history with search & filter
 - Settings management
 - Watermark support
 - Scheduled captures
-- Cloud sync framework
 
 ---
 
